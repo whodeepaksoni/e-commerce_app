@@ -10,7 +10,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                url: 'https://github.com/Kiaraintellipaat/Online-Learning-Platform-Deployment-using-DevOps-Pipeline.git'
+                url: 'https://github.com/whodeepaksoni/e-commerce_app.git'
             }
         }
 
