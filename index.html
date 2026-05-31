@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Demo — Online Learning Platform</title>
+<meta name="description" content="Demo — Modern online learning platform. Courses, instructors, certificates and more." />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #f6fbfb;
+    --card: #ffffff;
+    --muted: #6b7a86;
+    --primary: #2b6f77;
+    --primary-600: #225a63;
+    --accent: #f6b04d;
+    --accent-700: #e09a2f;
+    --glass: rgba(255,255,255,0.7);
+    --success: #2a9d8f;
+    --danger: #e76f51;
+    --shadow: 0 8px 24px rgba(16,24,40,0.08);
+    --radius: 14px;
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    background: linear-gradient(180deg, #f3fbfb 0%, #eef7f6 60%);
+    color:#123;
+    line-height:1.375;
+    font-size:16px;
+  }
+  .container{max-width:1200px;margin:32px auto;padding:0 20px}
+  header.topbar{
+    display:flex;align-items:center;gap:20px;justify-content:space-between;
+    background:linear-gradient(90deg,rgba(255,255,255,0.6),rgba(255,255,255,0.45));
+    padding:14px 20px;border-radius:12px;box-shadow:var(--shadow);
+    backdrop-filter:blur(6px);margin-bottom:22px;
+  }
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--primary-600)}
+  .logo{width:46px;height:46px;border-radius:10px;display:grid;place-items:center;
+    background:linear-gradient(135deg,var(--primary),#4aa8a1);color:white;font-weight:700;font-size:20px;
+    box-shadow:0 6px 18px rgba(43,111,119,0.18);
+  }
+  .brand h1{font-size:18px;margin:0}
+  .brand p{margin:0;font-size:12px;color:var(--muted)}
+  nav.nav{display:flex;gap:12px;align-items:center}
+  .nav a{text-decoration:none;color:var(--muted);padding:10px 12px;border-radius:10px;font-weight:600}
+  .nav a:hover,.nav a:focus{background:var(--glass);color:var(--primary-600);outline:2px solid transparent}
+  .cta{
+    display:inline-flex;align-items:center;gap:10px;
+    background:linear-gradient(90deg,var(--accent),var(--accent-700));
+    color:#08121a;padding:10px 14px;border-radius:10px;font-weight:700;text-decoration:none;
+    box-shadow:0 8px 20px rgba(224,154,47,0.18);
+  }
+  .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;margin-bottom:28px}
+  .hero-card{padding:28px;background:linear-gradient(180deg,rgba(255,255,255,0.6),rgba(255,255,255,0.45));border-radius:var(--radius);box-shadow:var(--shadow)}
+  .eyebrow{display:inline-block;background:rgba(43,111,119,0.08);color:var(--primary);padding:6px 10px;border-radius:999px;font-weight:700;font-size:13px}
+  .hero h2{margin:14px 0 8px;font-size:28px;line-height:1.1;color:#0b3940}
+  .hero p.lead{margin:0 0 18px;color:var(--muted);font-size:15px}
+  .searchbar{display:flex;gap:8px;align-items:center;background:#fff;padding:10px;border-radius:12px;border:1px solid rgba(16,24,40,0.04)}
+  .searchbar input{border:0;outline:0;width:100%;font-size:15px}
+  .quick-actions{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+  .quick-btn{background:var(--primary);color:white;padding:10px 12px;border-radius:10px;font-weight:700;text-decoration:none;display:inline-flex;gap:8px;align-items:center}
+  .quick-btn.alt{background:transparent;color:var(--primary);border:1px solid rgba(43,111,119,0.08)}
+  .hero-aside{display:flex;flex-direction:column;gap:14px;align-items:end}
+  .stats{background:linear-gradient(180deg,#ffffff,#fcfeff);border-radius:12px;padding:16px;width:100%;box-shadow:0 10px 30px rgba(10,20,30,0.03)}
+  .stat-row{display:flex;justify-content:space-between;gap:12px}
+  .stat{display:flex;flex-direction:column;gap:6px}
+  .stat strong{font-size:18px;color:var(--primary-600)}
+  .stat span{font-size:12px;color:var(--muted)}
+  .section{margin:22px 0}
+  .section h3{margin:0 0 12px;font-size:20px;color:#08323a}
+  .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+  .chip{background:#fff;padding:8px 12px;border-radius:999px;border:1px solid rgba(16,24,40,0.04);color:var(--muted);cursor:pointer;font-weight:600}
+  .chip.active{background:linear-gradient(90deg,#eaf6f5,#fff);border-color:rgba(43,111,119,0.12);color:var(--primary-600)}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px}
+  .card .thumb{height:140px;border-radius:10px;background:linear-gradient(135deg,#e6fbff,#d6f1ef);display:grid;place-items:center;color:var(--primary-600);font-weight:800;font-size:22px}
+  .card h4{margin:0;font-size:16px;color:#0b3940}
+  .meta{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:13px}
+  .enroll{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;border:1px solid rgba(16,24,40,0.04);text-decoration:none;font-weight:700}
+  .enroll.primary{background:linear-gradient(90deg,var(--accent),var(--accent-700));color:#08121a;border:0}
+  .instructors{display:flex;gap:14px;flex-wrap:wrap}
+  .instructor{background:linear-gradient(180deg,#fff,#fcfff8);padding:12px;border-radius:12px;display:flex;gap:12px;align-items:center;box-shadow:var(--shadow)}
+  .avatar{width:58px;height:58px;border-radius:12px;background:linear-gradient(135deg,#7dd3ca,#60a5fa);display:grid;place-items:center;color:white;font-weight:800}
+  footer{margin-top:30px;padding:20px;border-radius:12px;background:linear-gradient(90deg,rgba(255,255,255,0.6),rgba(255,255,255,0.45));box-shadow:var(--shadow)}
+  .footer-grid{display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap}
+  @media(max-width:980px){.hero{grid-template-columns:1fr 320px}.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:720px){.container{padding:12px;margin:16px auto}header.topbar{flex-direction:column;align-items:flex-start;gap:12px}.hero{grid-template-columns:1fr;gap:16px}.hero-aside{align-items:stretch}.grid{grid-template-columns:1fr}nav.nav{display:none}.mobile-nav-toggle{display:inline-flex}}
+  .mobile-nav-toggle{display:none;background:transparent;border:0;font-weight:800;color:var(--primary-600)}
+  .mobile-menu{display:none;gap:8px;margin-top:8px}
+  .mobile-menu a{display:block}
+  .show{display:flex!important}
+  a:focus,button:focus,.chip:focus{outline:3px solid rgba(34,90,99,0.14);outline-offset:2px;border-radius:10px}
+  .card:hover{transform:translateY(-6px);transition:transform .22s ease}
+  .enroll{transition:transform .16s ease,box-shadow .16s ease}
+  .enroll:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(20,40,60,0.08)}
+</style>
+</head>
+<body>
+  <div class="container" role="document">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Demo home">
+        <div class="logo" aria-hidden="true">DM</div>
+        <div>
+          <h1>Demo</h1>
+          <p>Learn. Build. Grow.</p>
+        </div>
+      </a>
+
+      <nav class="nav" role="navigation">
+        <a href="#courses">Courses</a>
+        <a href="#instructors">Instructors</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#about">About</a>
+        <a class="cta" href="#get-started">Get Started</a>
+      </nav>
+
+      <button class="mobile-nav-toggle" id="mobileToggle">☰ Menu</button>
+      <div id="mobileMenu" class="mobile-menu">
+        <a href="#courses">Courses</a>
+        <a href="#instructors">Instructors</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#about">About</a>
+        <a class="cta" href="#get-started">Get Started</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-card">
+          <span class="eyebrow">New</span>
+          <h2>Build job-ready skills with structured paths</h2>
+          <p class="lead">Interactive courses, hands-on projects, and expert mentors — all in one place. Start with free lessons and scale up to certifications.</p>
+
+          <form class="searchbar">
+            <input type="search" placeholder="Search courses, topics, instructors...">
+            <button type="submit" style="background:var(--primary);color:white;border:0;padding:8px 12px;border-radius:8px;font-weight:700">Search</button>
+          </form>
+
+          <div class="quick-actions">
+            <a class="quick-btn" href="#paths">Learning Paths</a>
+            <a class="quick-btn alt" href="#projects">Hands-on Projects</a>
+            <a class="quick-btn alt" href="#mentors">Mentorship</a>
+          </div>
+        </div>
+
+        <aside class="hero-aside">
+          <div class="stats">
+            <div class="stat-row">
+              <div class="stat"><strong>1,254</strong><span>Courses</span></div>
+              <div class="stat"><strong>4.8/5</strong><span>Average rating</span></div>
+            </div>
+            <hr style="border:none;border-top:1px dashed rgba(16,24,40,0.04);margin:12px 0">
+            <div style="font-size:13px;color:var(--muted)">Featured path: <strong style="color:var(--primary-600)">Fullstack Web Developer</strong></div>
+          </div>
+        </aside>
+      </section>
+
+      <section id="courses" class="section">
+        <h3>Popular Courses</h3>
+        <div class="grid">
+          <article class="card"><div class="thumb">JS</div><h4>Modern JavaScript</h4><p style="color:var(--muted);margin:0">Learn ES6+, async programming, and modern app architecture.</p><div class="meta"><span>12 modules • 48 hrs</span><a class="enroll primary" href="#">Enroll</a></div></article>
+          <article class="card"><div class="thumb">ML</div><h4>Machine Learning Foundations</h4><p style="color:var(--muted);margin:0">Regression, classification, and model validation.</p><div class="meta"><span>10 modules • 40 hrs</span><a class="enroll" href="#">Preview</a></div></article>
+          <article class="card"><div class="thumb">☁️</div><h4>Cloud Infrastructure & DevOps</h4><p style="color:var(--muted);margin:0">Terraform, Ansible, Docker, Kubernetes — real infra projects.</p><div class="meta"><span>8 modules • 30 hrs</span><a class="enroll primary" href="#">Enroll</a></div></article>
+        </div>
+      </section>
+
+      <section id="instructors" class="section">
+        <h3>Top Instructors</h3>
+        <div class="instructors">
+          <div class="instructor"><div class="avatar">AS</div><div><div style="font-weight:800;color:#0b3940">Aisha Sharma</div><div style="font-size:13px;color:var(--muted)">Senior Software Engineer</div></div><div style="margin-left:auto;color:var(--muted);font-weight:700">4.9 ★</div></div>
+          <div class="instructor"><div class="avatar" style="background:linear-gradient(135deg,#60a5fa,#7dd3ca)">RK</div><div><div style="font-weight:800;color:#0b3940">Rohit Kapoor</div><div style="font-size:13px;color:var(--muted)">Data Scientist</div></div><div style="margin-left:auto;color:var(--muted);font-weight:700">4.8 ★</div></div>
+        </div>
+      </section>
+
+      <footer>
+        <div class="footer-grid">
+          <div><strong>Demo</strong><div style="font-size:13px;color:var(--muted)">© <span id="year"></span> Demo Inc. All rights reserved.</div></div>
+          <div style="color:var(--muted)">Made with ♥ for learners</div>
+          <div><a href="#privacy" style="margin-right:12px;color:var(--muted)">Privacy</a><a href="#terms" style="color:var(--muted)">Terms</a></div>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+<script>
+  const toggle=document.getElementById('mobileToggle');
+  const menu=document.getElementById('mobileMenu');
+  toggle.addEventListener('click',()=>{menu.classList.toggle('show');});
+  document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
