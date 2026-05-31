@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "yourdockerhub/ecommerce-app"
+        IMAGE_NAME = "whodeepaksoni/ecommerce-app"
         IMAGE_TAG = "${BUILD_NUMBER}"
     }
 
