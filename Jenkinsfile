@@ -43,7 +43,7 @@ pipeline {
 
         stage('Deploy Using Ansible') {
             steps {
-                sh 'ansible-playbook -i /home/ubuntu/ansible/inventory.ini /home/ubuntu/ansible/deploy-app.yml -e image_tag=$BUILD_NUMBER'
+                sh 'ansible-playbook -i /var/lib/jenkins/ansible/inventory.ini /var/lib/jenkins/ansible/deploy-app.yml -e image_tag=${BUILD_NUMBER}'
             }
         }
     }
